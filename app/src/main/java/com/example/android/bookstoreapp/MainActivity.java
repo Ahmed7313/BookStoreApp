@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Define a projection that specifies which columns from the database
         //  will be actually used after this query.
+        //this line of code i will use later, so avoid it pls
         String [] projection = {
+                BookEntry._ID,
                 BookEntry.COLUMN_BOOK_PRODUCT_NAME,
                 BookEntry.COLUMN_BOOK_PRICE,
                 BookEntry.COLUMN_BOOK_QUANTITY,
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         Cursor cursor = db.query(
                 BookEntry.TABLE_NAME_BOOKS,
-                projection,
+                null,
                 null,
                 null,
                 null,
