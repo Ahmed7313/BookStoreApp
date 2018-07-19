@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +23,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mBooksDbHelper = new BooksDbHelper(this);
+
+
+        Button displayButton = findViewById(R.id.button);
+        displayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                insertBook();
+                displayBooks();
+            }
+        });
     }
 
-    private void displayInfo (){
+    private void displayBooks() {
         // Create and/or open a database to read from it
         SQLiteDatabase db = mBooksDbHelper.getReadableDatabase();
 
