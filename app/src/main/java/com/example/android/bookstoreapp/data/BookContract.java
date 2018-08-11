@@ -91,12 +91,6 @@ public final class BookContract {
          */
         public static final String COLUMN_BOOK_SUPPLIER_PHONE_NUMBER = "supplier_phone_number";
 
-        /**
-         * Author of the book
-         * <p>
-         * Type: TEXT
-         **/
-        public static final String COLOMN_BOOK_AUTHOR = "author";
     }
 
 }

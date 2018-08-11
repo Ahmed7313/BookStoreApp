@@ -100,12 +100,12 @@ public class BookProvider extends ContentProvider {
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(Uri uri, ContentValues contentValues) {
         //initialize the matcher
         final int match = mMriMatcher.match(uri);
         switch (match) {
             case BOOKS:
-                return insertBook(uri, values);
+                return insertBook(uri, contentValues);
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
@@ -142,11 +142,13 @@ public class BookProvider extends ContentProvider {
         if (storePhone == null) {
             throw new IllegalArgumentException("Book as product requires a name");
         }
-        //get the writable database to insert into
+
+        // Get writable database
         SQLiteDatabase database = mBooksDB.getWritableDatabase();
 
+        // Insert the new pet with the given values
         long id = database.insert(BookEntry.TABLE_NAME_BOOKS, null, values);
-
+        // If the ID is -1, then the insertion failed. Log an error and return null.
         if (id == -1) {
             Log.e(LOG_TAG, "Failed to insert row for " + uri);
             return null;

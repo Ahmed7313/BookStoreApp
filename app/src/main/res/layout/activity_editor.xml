@@ -34,19 +34,18 @@
                 android:hint="@string/hint_book_name"
                 android:inputType="textCapWords" />
 
-            <!-- Breed field -->
             <EditText
                 android:id="@+id/edit_book_price"
                 style="@style/EditorFieldStyle"
                 android:hint="@string/hint_book_price"
-                android:inputType="textCapWords" />
+                android:inputType="number" />
 
             <!-- Breed field -->
             <EditText
                 android:id="@+id/edit_book_quantity"
                 style="@style/EditorFieldStyle"
                 android:hint="@string/hint_book_quantity"
-                android:inputType="textCapWords" />
+                android:inputType="number" />
         </LinearLayout>
     </LinearLayout>
 

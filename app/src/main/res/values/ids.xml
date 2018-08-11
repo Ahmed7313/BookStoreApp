@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="editor_insert_Book_successful" type="id">Book inserted</item>
+</resources>

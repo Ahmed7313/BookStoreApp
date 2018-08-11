@@ -13,7 +13,7 @@
     <string name="action_delete">Delete</string>
 
     <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
-    <string name="category_overview">Overview</string>
+    <string name="category_overview">Overview on the book</string>
 
     <!-- Label for Supplier information in the editor [CHAR LIMIT=30] -->
     <string name="supplier_info">Supplier Information</string>
@@ -49,4 +49,8 @@
     <string name="hint_store_phone">Store phone</string>
     <!-- text for the toast message to indicate the insertion done successfully -->
     <string name="catalog_dummy_data_inserted">Dummy book inserted successfully</string>
+    <string name="sale">SALE</string>
+    <string name="editor_insert_book_failed">Inserting book failed</string>
+    <string name="editor_insert_Book_successful">Book inserted</string>
+    <string name="hint_book_author_name">Author name</string>
 </resources>

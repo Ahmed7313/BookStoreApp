@@ -1,11 +1,17 @@
 package com.example.android.bookstoreapp;
 
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.android.bookstoreapp.data.BookContract.BookEntry;
 
 /**
  * Allows user to create a new pet or edit an existing one.
@@ -53,6 +59,7 @@ public class EditorActivity extends AppCompatActivity {
         mStoreName = findViewById(R.id.edit_book_supplier_name);
         mStorePhone = findViewById(R.id.edit_book_supplier_name);
 
+
     }
 
     @Override
@@ -69,7 +76,8 @@ public class EditorActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                // Do nothing for now
+                saveBook();
+                finish();
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -82,5 +90,39 @@ public class EditorActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void saveBook() {
+
+        String nameString = mNameEditText.getText().toString().trim();
+        String priceString = mPriceEditText.getText().toString().trim();
+        String quantityString = mQuantityEditText.getText().toString().trim();
+        String supplierNameString = mStoreName.getText().toString().trim();
+        String supplierPhoneString = mStorePhone.getText().toString().trim();
+
+        int price = 0;
+        int quantity = 0;
+        if (!TextUtils.isEmpty(priceString) && !TextUtils.isEmpty(quantityString)) {
+            price = Integer.parseInt(priceString);
+            quantity = Integer.parseInt(quantityString);
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(BookEntry.COLUMN_BOOK_PRODUCT_NAME, nameString);
+        values.put(BookEntry.COLUMN_BOOK_PRICE, price);
+        values.put(BookEntry.COLUMN_BOOK_QUANTITY, quantity);
+        values.put(BookEntry.COLUMN_BOOK_SUPPLIER_NAME, supplierNameString);
+        values.put(BookEntry.COLUMN_BOOK_SUPPLIER_PHONE_NUMBER, supplierPhoneString);
+
+
+        Uri newUri = getContentResolver().insert(BookEntry.CONTENT_URI, values);
+
+        if (newUri == null) {
+            // If the new content URI is null, then there was an error with insertion.
+            Toast.makeText(this, getString(R.string.editor_insert_book_failed),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.editor_insert_Book_successful), Toast.LENGTH_SHORT).show();
+        }
     }
 }
