@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".CatalogActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/list_of_books"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        android:typeface="sans" />
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
+
+    <include layout="@layout/empty_view" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -17,11 +37,5 @@
         android:clickable="true"
         android:focusable="true"
         app:srcCompat="@drawable/float_ac_icon" />
-
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
 
 </RelativeLayout>

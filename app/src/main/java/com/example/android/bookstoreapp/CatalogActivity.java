@@ -1,6 +1,7 @@
 package com.example.android.bookstoreapp;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -10,9 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,12 +39,17 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     // If non-null, this is the current filter the user has provided.
     private String mCurFilter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
         booksListView = findViewById(R.id.list_view);
+
+        // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
+        View emptyView = findViewById(R.id.empty_view);
+        booksListView.setEmptyView(emptyView);
         cursorAdapter = new BookCursorAdapter(this, null);
 
         booksListView.setAdapter(cursorAdapter);
@@ -54,6 +62,18 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             public void onClick(View view) {
                 Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        booksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //send the Book Url using intent to the EditorActivity to use it as edit book
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                Uri contentUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, id);
+                intent.setData(contentUri);
+                startActivity(intent);
+
             }
         });
     }
@@ -76,10 +96,15 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
-                // Do nothing for now
+                deleteAllBooks();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteAllBooks() {
+        int rowsDeleted = getContentResolver().delete(BookEntry.CONTENT_URI, null, null);
+        Log.v("CatalogActivity", rowsDeleted + " rows deleted from pet database");
     }
 
     /**
@@ -139,5 +164,25 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // above is about to be closed.  We need to make sure we are no
         // longer using it.
         cursorAdapter.swapCursor(null);
+    }
+
+    public void saleBook(int bookID, int quantity) {
+        // Perform saleButton ImageView and decrease quantity by one
+        quantity--;
+
+        //If book is still available
+        if (quantity >= 0) {
+            // Create a ContentValues object where column names are the keys,
+            // and new book attributes are the values.
+            ContentValues values = new ContentValues();
+            values.put(BookEntry.COLUMN_BOOK_QUANTITY, quantity);
+            Uri updateUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, bookID);
+            int rowsAffected = getContentResolver().update(updateUri, values, null, null);
+            if (rowsAffected == 1) {
+                Toast.makeText(this, R.string.sell_book_done, Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, R.string.no_product_in_stock, Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -53,4 +53,26 @@
     <string name="editor_insert_book_failed">Inserting book failed</string>
     <string name="editor_insert_Book_successful">Book inserted</string>
     <string name="hint_book_author_name">Author name</string>
+    <string name="editor_activity_title_new_book">New Book</string>
+    <string name="editor_activity_title_edit_book">Edit Book</string>
+    <string name="editor_update_book_failed">Book update failed</string>
+    <string name="editor_update_book_successful">Book update successfully</string>
+    <string name="empty_view_add_books_pls">Add some books here</string>
+    <string name="empty_view_empty_store">The store is empty...</string>
+    <string name="empty_view_title_text">The store is empty...</string>
+    <string name="empty_view_subtitle_text">Add some books here</string>
+    <string name="list_of_books">List of books</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+
+    <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
+    <string name="delete_dialog_msg">Delete this book ?.</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="sell_book_done">done</string>
+    <string name="no_product_in_stock">No product in stock</string>
+
 </resources>
