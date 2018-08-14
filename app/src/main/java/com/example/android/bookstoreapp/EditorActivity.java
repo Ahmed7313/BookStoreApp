@@ -1,5 +1,6 @@
 package com.example.android.bookstoreapp;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -7,10 +8,14 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -18,6 +23,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.android.bookstoreapp.data.BookContract.BookEntry;
@@ -27,6 +33,11 @@ import com.example.android.bookstoreapp.data.BooksDbHelper;
  * Allows user to create a new pet or edit an existing one.
  */
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    /**
+     * Permission to allow the app make a phone call
+     */
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
 
     /**
      * EditText field to enter the pet's name
@@ -79,22 +90,43 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
+        // Examine the intent that was used to launch this activity,
+        // in order to figure out if we're creating a new book or editing an existing one.
         Intent intent = getIntent();
         mCurrentBookUri = intent.getData();
 
+        // Find all relevant views that we will need in Edit Book mode
+        ImageView callSupplierButton = findViewById(R.id.button_call_supplier);
+        final ImageView increaseQuantityImageView = findViewById(R.id.image_view_increase_quantity);
+        final ImageView decreaseQuantityImageView = findViewById(R.id.image_view_decrease_quantity);
+
+        // If the intent DOES NOT contain a book content URI, then we know that we are
+        // creating a new book.
         if (mCurrentBookUri == null) {
-            setTitle(R.string.editor_activity_title_new_book);
+            // This is a new book, so change the app bar to say "Add a Book"
+            setTitle(getString(R.string.editor_activity_title_new_book));
+
+            // Make the views that we need in Edit Book mode invisible if we are in Add a Book mode
+            callSupplierButton.setVisibility(View.GONE);
+            increaseQuantityImageView.setVisibility(View.GONE);
+            decreaseQuantityImageView.setVisibility(View.GONE);
+
+            // Invalidate the options menu, so the "Delete" menu option can be hidden.
+            // (It doesn't make sense to delete a book that hasn't been created yet.)
+            invalidateOptionsMenu();
         } else {
-            setTitle(R.string.editor_activity_title_edit_book);
-        }
+            // Otherwise this is an existing book, so change app bar to say "Edit Book"
+            setTitle(getString(R.string.editor_activity_title_edit_book));
 
-        // access the database
-        mBooksDB = new BooksDbHelper(this);
+            // Make the views that we need in Edit Book mode visible if we are in Edit Book mode
+            callSupplierButton.setVisibility(View.VISIBLE);
+            increaseQuantityImageView.setVisibility(View.VISIBLE);
+            decreaseQuantityImageView.setVisibility(View.VISIBLE);
 
-        if (mCurrentBookUri != null) {
+            // Initialize a loader to read the book data from the database
+            // and display the current values in the editor
             getLoaderManager().initLoader(EXISTING_BOOK_LOADER, null, this);
         }
-
         // Find all relevant views that we will need to read user input from
         mNameEditText = findViewById(R.id.edit_book_name);
         mPriceEditText = findViewById(R.id.edit_book_price);
@@ -111,6 +143,38 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mStoreName.setOnTouchListener(mTouchListener);
         mStorePhone.setOnTouchListener(mTouchListener);
 
+        // Create onclick listener on callSupplierButton
+        callSupplierButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall();
+            }
+        });
+
+        // Create onclick listener on increaseQuantityImageView
+        increaseQuantityImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String quantityString = mQuantityEditText.getText().toString().trim();
+                String stringValue = quantityString.matches("") ? "0" : quantityString;
+                int quantity = Integer.parseInt(stringValue);
+                updateQuantity(quantity, false);
+            }
+        });
+
+        // Create onclick listener on decreaseQuantityImageView
+        decreaseQuantityImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String quantityString = mQuantityEditText.getText().toString().trim();
+                if (quantityString.matches("")) {
+                    mQuantityEditText.setText("0");
+                }
+                String stringValue = quantityString.matches("") ? "0" : quantityString;
+                int quantity = Integer.parseInt(stringValue);
+                updateQuantity(quantity, true);
+            }
+        });
     }
 
     public void saveBook() {
@@ -425,5 +489,54 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // Close the activity
         finish();
+    }
+
+
+    private void makePhoneCall() {
+        String supplierPhoneNumber = mStorePhone.getText().toString().trim();
+        if (ContextCompat.checkSelfPermission(EditorActivity.this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(EditorActivity.this, new String[]{Manifest.permission.CALL_PHONE},
+                    MY_PERMISSIONS_REQUEST_CALL_PHONE);
+        } else {
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + supplierPhoneNumber)));
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall();
+            } else {
+                Toast.makeText(this, "Permission DENIED!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void updateQuantity(int quantity, boolean decrease) {
+        //Decrease or increase quantity
+        if (decrease) {
+            quantity--;
+        } else {
+            quantity++;
+        }
+        // Only perform the update if this is an existing book.
+        if (mCurrentBookUri != null) {
+            if (quantity >= 0) {
+                ContentValues values = new ContentValues();
+                values.put(BookEntry.COLUMN_BOOK_QUANTITY, quantity);
+
+                // Call the ContentResolver to update the book at the given content URI.
+                // Pass in null for the selection and selection args because the mCurrentBookUri
+                // content URI already identifies the book that we want.
+                getContentResolver().update(mCurrentBookUri, values, null, null);
+
+                // Show a toast message when the quantity is equal to 0
+                if (quantity == 0) {
+                    Toast.makeText(getApplicationContext(), R.string.no_product_in_stock, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }
