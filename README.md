@@ -1,46 +1,74 @@
-# Book Store App
-This is the final project in Android Basics Nano Degree from Google.
+# Guardian News App
 
-The goal is to design and create the structure of an **Inventory App** which would allow a store to keep track of its inventory
+This is the fourth App I have created for Google Basics NanoDegree.
 
-**This is how the app looks like:**
+Its goal was to learn how to use API's and parsing JSON data while creating preference menu.
 
-<a href="https://gfycat.com/gifs/detail/WideeyedUnselfishAuklet"><img src=https://thumbs.gfycat.com/WideeyedUnselfishAuklet-size_restricted.gif" title="made at imgflip.com"/></a>
+<a href="https://gfycat.com/gifs/detail/WideeyedUnselfishAuklet"><img src="https://thumbs.gfycat.com/WideeyedUnselfishAuklet-size_restricted.gif" title="made at imgflip.com"/></a>
 
 
-# The goal of this project was to learn
+The App includes it's own **QueryUtils** class that handles connecting the **App** to the **API** and parsing the received **Data** in **JSONobjects** and **JSONArrays**.
 
--   Storing information in a SQLite database
+Its also includes a preference sitting layout that allows the user to choose the types of articles he wants to receive 
 
--   Integrating Android’s file storage systems into that database
+**This is how the App looks like:**
 
--   Setting up a Content Provider and use it to access a repository of data
--   Presenting information from files and SQLite databases to users
+# The goal of this project was to learn:
 
--   Updating information based on user input
+-   Connecting to an API
+-   Parsing the JSON response
+-   Handling error cases gracefully
+-   Updating information regularly
+-   Using an AsyncTask
+-   Doing network operations independent of the Activity lifecycle
+-  mplement the Preference Fragment
+-   Launch a Settings Activity from a menu in the Main Activity
+-   Use Uri.Builder class to add query parameters to the URL
+-   Update and display the Preference Summary
+-   Using an AsyncTaskLoader
 
--   Creating intents to other apps using stored information
+# I have created and used through this project:
 
-# I have used through this project
+ 1. **Connecting to The  Guardian API**
+ 
+ 2. **QueryUtils class that include these methodes:**
 
-**SQLight DataBase**
+|Method name  | Method description |
+|--|--|
+| fetchDataFromNewsURl | Its takes the String URL and fetch all the data from it. |
+|createURL|create the url object|
+|makeHTTPrequist|Its start the HTTP requist, open the connection, readFrom the stream.|
+|readFromStream|` `read the stream and buffer it|
+|extractFeatureFromJson|Parse the JSON and insert it into readable data|
 
-**Contract class**
+ 3. **Handle Exceptions**
 
-**ContentProvider**
+ 4. **AsyncTask**
 
-**ContentResolver**
+ 5. **AsyncTaskLoader**
+    
+ 6. **CustomAdapter**
 
-**SQLiteOpenHelper**
+ 7. **JSONObject - JSONArray**
 
-**CursorAdapter**
+ 8. **Uri.Builder**
 
-**Loaders**
+ 9. **Handle Empty view**
 
-**Menu Items**
+ 10. **Menu Items**
 
-**DialogInterface**
+ 11. **PreferenceFragment**
 
-**AlertDialog**
+ 12. **SharedPreferences**
 
-**Logic for validating the inserted data**
+ 13. **Preference.OnPreferenceChangeListener**
+
+ 14. **TimeZone**
+
+ 15. **DateFormat**
+
+ 16. **SimpleDateFormat**
+
+ 17. **Date fromISO8601UTC**
+
+ 
