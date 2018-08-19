@@ -5,6 +5,8 @@ The goal is to design and create the structure of an **Inventory App** which wou
 
 **This is how the app looks like:**
 
+<a href="https://gfycat.com/gifs/detail/WideeyedUnselfishAuklet"><img src=https://thumbs.gfycat.com/WideeyedUnselfishAuklet-size_restricted.gif" title="made at imgflip.com"/></a>
+
 
 # The goal of this project was to learn
 
