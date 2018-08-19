@@ -17,7 +17,7 @@ Its also includes a preference sitting layout that allows the user to choose the
 
 # The goal of this project was to learn:
 
--    toring information in a SQLite database
+-   Storing information in a SQLite database
 -   Integrating Android’s file storage systems into that database
 -   Setting up a Content Provider and use it to access a repository of data
 -   Presenting information from files and SQLite databases to users
@@ -48,6 +48,6 @@ Its also includes a preference sitting layout that allows the user to choose the
 
 11. **SQLight database**
 
-12. **Best OOP  design practices **
+12. **Best OOP  design practices**
 
  
