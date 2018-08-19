@@ -1,8 +1,10 @@
-# Guardian News App
+# book Store App
 
-This is the fourth App I have created for Google Basics NanoDegree.
+This is the Final App I have created for Android Basics NanoDegree by Google.
 
-Its goal was to learn how to use API's and parsing JSON data while creating preference menu.
+The goal is to design and create the structure of an **Inventory App** which would allow a store to keep track of its inventory.
+
+**This is how the App looks like:**
 
 <a href="https://gfycat.com/gifs/detail/WideeyedUnselfishAuklet"><img src="https://thumbs.gfycat.com/WideeyedUnselfishAuklet-size_restricted.gif" title="made at imgflip.com"/></a>
 
@@ -15,60 +17,37 @@ Its also includes a preference sitting layout that allows the user to choose the
 
 # The goal of this project was to learn:
 
--   Connecting to an API
--   Parsing the JSON response
--   Handling error cases gracefully
--   Updating information regularly
--   Using an AsyncTask
--   Doing network operations independent of the Activity lifecycle
--  mplement the Preference Fragment
--   Launch a Settings Activity from a menu in the Main Activity
--   Use Uri.Builder class to add query parameters to the URL
--   Update and display the Preference Summary
--   Using an AsyncTaskLoader
+-    toring information in a SQLite database
+-   Integrating Android’s file storage systems into that database
+-   Setting up a Content Provider and use it to access a repository of data
+-   Presenting information from files and SQLite databases to users
+-   Updating information based on user input
+-   Creating intents to other apps using stored information
 
 # I have created and used through this project:
 
- 1. **Connecting to The  Guardian API**
- 
- 2. **QueryUtils class that include these methodes:**
+ 1. **ContractClass**
+  
+2. **ContentProvider**
 
-|Method name  | Method description |
-|--|--|
-| fetchDataFromNewsURl | Its takes the String URL and fetch all the data from it. |
-|createURL|create the url object|
-|makeHTTPrequist|Its start the HTTP requist, open the connection, readFrom the stream.|
-|readFromStream|` `read the stream and buffer it|
-|extractFeatureFromJson|Parse the JSON and insert it into readable data|
+3. **SQLiteOpenHelper**
 
- 3. **Handle Exceptions**
+4. **UriMatcher**
 
- 4. **AsyncTask**
+5. **Cursor**
 
- 5. **AsyncTaskLoader**
-    
- 6. **CustomAdapter**
+6. **CursorAdapter**
 
- 7. **JSONObject - JSONArray**
+7. **CursorLoader**
 
- 8. **Uri.Builder**
+8. **Menu Items**
 
- 9. **Handle Empty view**
+9. **AlertDialog.Builder**
 
- 10. **Menu Items**
+10. **DialogInterface** 
 
- 11. **PreferenceFragment**
+11. **SQLight database**
 
- 12. **SharedPreferences**
-
- 13. **Preference.OnPreferenceChangeListener**
-
- 14. **TimeZone**
-
- 15. **DateFormat**
-
- 16. **SimpleDateFormat**
-
- 17. **Date fromISO8601UTC**
+12. **Best OOP  design practices **
 
  
