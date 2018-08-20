@@ -7,6 +7,8 @@ The goal is to design and create the structure of an **Inventory App** which wou
 **This is how the App looks like:**
 
 <a href="https://gfycat.com/gifs/detail/ShallowWholeAnglerfish"><img src="https://thumbs.gfycat.com/ShallowWholeAnglerfish-size_restricted.gif" title="made at imgflip.com"/></a>
+
+
 <a href="https://gfycat.com/gifs/detail/EmptyInsecureHawaiianmonkseal"><img src="https://thumbs.gfycat.com/EmptyInsecureHawaiianmonkseal-size_restricted.gif" title="made at imgflip.com"/></a>
 
 
