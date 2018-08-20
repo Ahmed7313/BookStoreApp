@@ -7,7 +7,7 @@ The goal is to design and create the structure of an **Inventory App** which wou
 **This is how the App looks like:**
 
 <a href="https://gfycat.com/gifs/detail/ShallowWholeAnglerfish"><img src="https://thumbs.gfycat.com/ShallowWholeAnglerfish-size_restricted.gif" title="made at imgflip.com"/></a>
-<a href="https://gfycat.com/gifs/detail/AdeptHardtofindBluewhale"><img src="https://thumbs.gfycat.com/AdeptHardtofindBluewhale-size_restricted.gif" title="made at imgflip.com"/></a>
+<a href="https://gfycat.com/gifs/detail/EmptyInsecureHawaiianmonkseal"><img src="https://thumbs.gfycat.com/EmptyInsecureHawaiianmonkseal-size_restricted.gif" title="made at imgflip.com"/></a>
 
 
 The App includes it's own **QueryUtils** class that handles connecting the **App** to the **API** and parsing the received **Data** in **JSONobjects** and **JSONArrays**.
